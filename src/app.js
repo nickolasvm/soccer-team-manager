@@ -3,6 +3,7 @@ const express = require('express');
 
 const app = express();
 
+// EXTREMAMENTE IMPORTANTE
 app.use(express.json());
 
 // rota http://localhost:3001/
@@ -55,6 +56,14 @@ app.get('/teams/:id', (req, res) => {
   const teamId = teams.find((team) => team.id === Number(id));
 
   res.status(200).json({ teamId });
+});
+
+app.delete('/teams/:id', (req, res) => {
+  const { id } = req.params;
+  const arrayPosition = teams.findIndex((team) => team.id === Number(id));
+  teams.splice(arrayPosition, 1);
+
+  res.status(200).end();
 });
 
 module.exports = app;
