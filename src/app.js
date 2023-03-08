@@ -3,6 +3,8 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.json());
+
 // rota http://localhost:3001/
 // const OK = 200;
 // const INTERNAL_SERVER_ERROR = 500;
@@ -24,5 +26,12 @@ const teams = [
 ];
 
 app.get('/teams', (req, res) => res.status(200).json({ teams }));
+
+app.post('/teams', (req, res) => {
+  const newTeam = { ...req.body };
+  teams.push(newTeam);
+
+  res.status(201).json({ team: newTeam });
+});
 
 module.exports = app;
